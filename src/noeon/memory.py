@@ -145,9 +145,10 @@ class SharedMemory:
 
     def _list_sync(self, namespace: str, prefix: str) -> list[MemoryEntry]:
         with self._lock:
+            escaped = prefix.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
             rows = self._connection.execute(
-                "SELECT * FROM memory WHERE namespace=? AND key LIKE ? ORDER BY key",
-                (namespace, f"{prefix}%"),
+                "SELECT * FROM memory WHERE namespace=? AND key LIKE ? ESCAPE '\\' ORDER BY key",
+                (namespace, f"{escaped}%"),
             ).fetchall()
         return [self._entry(row) for row in rows]
 
@@ -187,3 +188,12 @@ class MemoryScope:
 
     async def list(self, namespace: str, *, prefix: str = "") -> list[MemoryEntry]:
         return await self._memory.list(self._namespace(namespace), prefix=prefix)
+
+    async def delete(self, namespace: str, key: str, *, expected_version: int | None = None) -> bool:
+        if not self.writable:
+            raise MemoryPermissionError("memory scope is read-only")
+        return await self._memory.delete(self._namespace(namespace), key,
+                                         expected_version=expected_version)
+
+    async def events(self, namespace: str, key: str, *, after_id: int = 0) -> list[dict[str, Any]]:
+        return await self._memory.events(self._namespace(namespace), key, after_id=after_id)

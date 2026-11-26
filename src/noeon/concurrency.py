@@ -155,6 +155,7 @@ class ConcurrencyManager:
             task = queued.task
             assert task is not None and queued.future is not None
             if task.task_id in self._cancelled:
+                self._cancelled.discard(task.task_id)
                 self._finish(task, queued.future, TaskResult(task.task_id, task.agent_id, None,
                                                               None, 0, 0.0, cancelled=True))
                 self._queue.task_done()
@@ -181,12 +182,10 @@ class ConcurrencyManager:
         while attempts <= task.max_retries:
             attempts += 1
             try:
-                value = task.run()
-                if inspect.isawaitable(value):
-                    if task.timeout_seconds is None:
-                        value = await value
-                    else:
-                        value = await asyncio.wait_for(value, task.timeout_seconds)
+                if task.timeout_seconds is None:
+                    value = await self._invoke(task)
+                else:
+                    value = await asyncio.wait_for(self._invoke(task), task.timeout_seconds)
                 return TaskResult(task.task_id, task.agent_id, value, None, attempts,
                                   time.monotonic() - started)
             except asyncio.CancelledError:
@@ -195,6 +194,18 @@ class ConcurrencyManager:
                 last_error = exc
         return TaskResult(task.task_id, task.agent_id, None, last_error, attempts,
                           time.monotonic() - started)
+
+    @staticmethod
+    async def _invoke(task: AgentTask[Any]) -> Any:
+        # Sync callables must not run on the worker's event loop: one blocking task
+        # would otherwise stall every other agent sharing the scheduler.
+        if inspect.iscoroutinefunction(task.run):
+            value = task.run()
+        else:
+            value = await asyncio.to_thread(task.run)
+        if inspect.isawaitable(value):
+            value = await value
+        return value
 
     def _finish(self, task: AgentTask[Any], future: asyncio.Future[TaskResult[Any]],
                 result: TaskResult[Any]) -> None:

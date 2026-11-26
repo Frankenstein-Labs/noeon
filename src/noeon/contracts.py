@@ -24,6 +24,9 @@ class Mission(BaseModel):
     goal: str = Field(min_length=1)
     workspace: Path
     model: str | None = None
+    agent_role: str | None = None
+    skill_budget_tokens: int = Field(default=6000, ge=200, le=200_000)
+    require_changes: bool = False
     timeout_seconds: int = Field(default=900, ge=1, le=86_400)
     max_attempts: int = Field(default=3, ge=1, le=20)
     metadata: dict[str, Any] = Field(default_factory=dict)
@@ -45,4 +48,5 @@ class MissionResult(BaseModel):
     attempts: int = 1
     events: list[MissionEvent] = Field(default_factory=list)
     artifacts: list[str] = Field(default_factory=list)
+    skills_used: list[str] = Field(default_factory=list)
     error: str | None = None

@@ -6,6 +6,8 @@ __pycache__/
 .mypy_cache/
 *.egg-info/
 .noeon/
+catalog/registry.jsonl
+catalog/registry.jsonl.gz
 .env
 .env.*
 !.env.example

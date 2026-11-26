@@ -28,6 +28,25 @@ noeon 'Inspect the repository, implement the requested change, and run its tests
 
 Les clés et endpoints des fournisseurs sont volontairement gérés par l’environnement de l’opérateur. Noeon ne les écrit pas dans les fichiers de mission.
 
+## Skill Universe
+
+Noeon dispose d'un catalogue de compétences importées de sources open source
+auditées, avec provenance, licence, hash et statut de sécurité. Le catalogue ne
+charge jamais tout le corpus dans le contexte : il sélectionne les compétences
+utiles à une mission, par rôle, sous budget de tokens.
+
+```bash
+python -m noeon.skills.cli sync
+python -m noeon.skills.cli stats
+python -m noeon.skills.cli plan "Créer une API FastAPI avec tests"
+python -m noeon.skills.cli search "design system" --role designer
+```
+
+Voir [`docs/SKILLS.md`](docs/SKILLS.md) pour l'architecture, les règles de licence,
+le scanner de sécurité et les limites. Les sources auditées sont dans
+[`catalog/sources.toml`](catalog/sources.toml), le commit et les compteurs réels
+dans [`catalog/sources.lock.json`](catalog/sources.lock.json).
+
 ## Architecture
 
 - `src/noeon/contracts.py` : missions, événements et résultats versionnables.
@@ -37,6 +56,7 @@ Les clés et endpoints des fournisseurs sont volontairement gérés par l’envi
 - `tests/` : tests locaux reproductibles, indépendants d’un LLM.
 - `src/noeon/agents.py` : registre de rôles et skills avec capacité configurable jusqu’à 1 000 agents dans cette tranche.
 - `src/noeon/concurrency.py` et `src/noeon/memory.py` : runtime borné et mémoire partagée persistante, décrits dans [`docs/RUNTIME.md`](docs/RUNTIME.md).
+- `src/noeon/skills/` : catalogue, découverte, validation, sécurité, exécution et apprentissage, décrits dans [`docs/SKILLS.md`](docs/SKILLS.md).
 
 La première version ne prétend pas encore fournir une isolation Docker complète, une mémoire distribuée, un Agent Server Noeon ou une exécution réellement validée de milliers d’agents concurrents. Ces éléments sont des étapes suivantes et sont suivis dans `docs/ROADMAP.md`.
 
