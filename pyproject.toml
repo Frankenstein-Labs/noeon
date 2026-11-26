@@ -1,5 +1,5 @@
 [project]
-name = "noeon-engine"
+name = "noeon"
 version = "0.1.0"
 description = "Noeon autonomous software engineering engine"
 readme = "README.md"

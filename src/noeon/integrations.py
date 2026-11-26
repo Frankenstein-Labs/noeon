@@ -18,9 +18,17 @@ def _prepend_if_dir(value: str | None) -> None:
             sys.path.insert(0, path)
 
 
+def _repo_default(*parts: str) -> str | None:
+    root = Path(__file__).resolve().parents[2]
+    candidate = root.joinpath(*parts)
+    return str(candidate) if candidate.is_dir() else None
+
+
 def load_deerflow_lead_agent() -> Any:
     """Load DeerFlow's published harness entry point from an explicit source checkout."""
-    root = os.getenv("NOEON_DEERFLOW_BACKEND")
+    root = os.getenv("NOEON_DEERFLOW_BACKEND") or _repo_default(
+        "vendor", "deer-flow", "backend", "packages", "harness"
+    )
     _prepend_if_dir(root)
     try:
         module = importlib.import_module("deerflow.agents")
@@ -33,7 +41,9 @@ def load_deerflow_lead_agent() -> Any:
 
 def load_openhands() -> tuple[Any, Any, Any, Any]:
     """Load OpenHands SDK classes, optionally from a checked-out SDK source tree."""
-    root = os.getenv("NOEON_OPENHANDS_SDK")
+    root = os.getenv("NOEON_OPENHANDS_SDK") or _repo_default(
+        "vendor", "openhands-software-agent-sdk", "openhands-sdk"
+    )
     _prepend_if_dir(root)
     try:
         sdk = importlib.import_module("openhands.sdk")

@@ -2,6 +2,8 @@
 
 Noeon est un moteur headless d’ingénierie logicielle autonome. Il expose des contrats Python, une orchestration de missions et une couche d’exécution, sans frontend, site web ni tableau de bord.
 
+Le dépôt contient maintenant les sources réelles auditées de DeerFlow et de l’OpenHands Software Agent SDK dans `vendor/`. DeerFlow est conservé sans son frontend upstream afin que Noeon reste headless ; son backend, son harness, ses skills et ses tests sont présents. Les sources exactes et leurs commits sont décrits dans [`vendor/UPSTREAM_SOURCES.md`](vendor/UPSTREAM_SOURCES.md).
+
 ## Positionnement
 
 Noeon compose deux briques externes sans modifier leurs dépôts : DeerFlow fournit le rôle d’orchestrateur/harness (planification, sous-agents, mémoire, skills et sandbox) et OpenHands Software Agent SDK fournit l’exécution orientée code (conversation, outils fichiers/terminal, workspace et Agent Server). La couche Noeon conserve une frontière explicite entre ces responsabilités et échoue clairement lorsqu’une intégration n’est pas installée.
@@ -33,8 +35,9 @@ Les clés et endpoints des fournisseurs sont volontairement gérés par l’envi
 - `src/noeon/integrations.py` : chargement contrôlé des points d’entrée DeerFlow/OpenHands et routage de modèle.
 - `src/noeon/execution.py` : exécution bornée en workspace ; la production doit utiliser un conteneur ou un runtime isolé.
 - `tests/` : tests locaux reproductibles, indépendants d’un LLM.
+- `src/noeon/agents.py` : registre de rôles et skills avec capacité configurable jusqu’à 1 000 agents dans cette tranche.
 
-La première version ne prétend pas fournir une isolation Docker complète, une mémoire distribuée, un Agent Server Noeon ou des benchmarks comparatifs. Ces éléments sont des étapes suivantes et sont suivis dans `docs/ROADMAP.md`.
+La première version ne prétend pas encore fournir une isolation Docker complète, une mémoire distribuée, un Agent Server Noeon ou une exécution réellement validée de milliers d’agents concurrents. Ces éléments sont des étapes suivantes et sont suivis dans `docs/ROADMAP.md`.
 
 ## Exécution sans interface
 

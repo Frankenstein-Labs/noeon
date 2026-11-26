@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from noeon.agents import default_registry
 from noeon.contracts import Mission, MissionStatus
 from noeon.execution import BoundedExecutor
 from noeon.orchestrator import NoeonOrchestrator
@@ -24,3 +25,9 @@ def test_missing_openhands_fails_explicitly(tmp_path: Path, monkeypatch) -> None
     result = NoeonOrchestrator().run(mission)
     assert result.status == MissionStatus.FAILED
     assert result.error
+
+
+def test_default_registry_has_skilled_specialists() -> None:
+    registry = default_registry(max_agents=1000)
+    assert len(registry.list()) >= 10
+    assert all(agent.skills for agent in registry.list())
