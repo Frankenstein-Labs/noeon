@@ -36,6 +36,7 @@ Les clés et endpoints des fournisseurs sont volontairement gérés par l’envi
 - `src/noeon/execution.py` : exécution bornée en workspace ; la production doit utiliser un conteneur ou un runtime isolé.
 - `tests/` : tests locaux reproductibles, indépendants d’un LLM.
 - `src/noeon/agents.py` : registre de rôles et skills avec capacité configurable jusqu’à 1 000 agents dans cette tranche.
+- `src/noeon/concurrency.py` et `src/noeon/memory.py` : runtime borné et mémoire partagée persistante, décrits dans [`docs/RUNTIME.md`](docs/RUNTIME.md).
 
 La première version ne prétend pas encore fournir une isolation Docker complète, une mémoire distribuée, un Agent Server Noeon ou une exécution réellement validée de milliers d’agents concurrents. Ces éléments sont des étapes suivantes et sont suivis dans `docs/ROADMAP.md`.
 
