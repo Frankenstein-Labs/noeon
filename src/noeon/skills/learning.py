@@ -8,7 +8,14 @@ from pathlib import Path
 from noeon.execution import BoundedExecutor
 
 from .manifest import build_record
-from .model import InstallationStatus, Origin, SecurityDecision, SkillRecord, ValidationStatus, slugify
+from .model import (
+    InstallationStatus,
+    Origin,
+    SecurityDecision,
+    SkillRecord,
+    ValidationStatus,
+    slugify,
+)
 from .registry import SkillRegistry
 
 
