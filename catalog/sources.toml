@@ -1,0 +1,158 @@
+# Audited skill sources for the Noeon catalog.
+#
+# mode = "import"    content is fetched at the pinned commit, hashed, scanned and
+#                    stored in the registry; installs re-verify the hash.
+# mode = "reference" the repository is audited and its skill count recorded, but no
+#                    content is imported (licence, aggregation or provenance limits).
+#
+# Only MIT, Apache-2.0 and BSD sources are imported. Copyleft or unlicensed sources
+# stay reference-only; they are never copied into Noeon.
+
+[[sources]]
+repository = "OpenHands/extensions"
+ref = "87bd17d7fdcfc25917a38dc055ea0d4837effd55"
+mode = "import"
+license = "MIT"
+reason = "First-party OpenHands skills and plugins; MIT and designed for the SDK."
+
+[[sources]]
+repository = "wshobson/agents"
+ref = "c96b5f6552dba32e4492307493ee613581430715"
+mode = "import"
+license = "MIT"
+reason = "Large MIT catalog of engineering skills and agents."
+
+[[sources]]
+repository = "google/skills"
+ref = "c75ad1a5563d870eca5ab7ed47fa88315d1a3c56"
+mode = "import"
+license = "Apache-2.0"
+reason = "Google agent skills, Apache-2.0."
+
+[[sources]]
+repository = "anthropics/claude-plugins-official"
+ref = "0fbfda5a91f4adc311daca25acc99132f40f0b6e"
+mode = "import"
+license = "Apache-2.0"
+reason = "Official Anthropic plugin marketplace, Apache-2.0."
+
+[[sources]]
+repository = "davila7/claude-code-templates"
+ref = "24d9d16c0053791c2a02ad755d8c54272e893b27"
+mode = "import"
+license = "MIT"
+reason = "MIT collection of agent and skill templates."
+
+[[sources]]
+repository = "alirezarezvani/claude-skills"
+ref = "f565e664952b3d5b7ef2b1e6a50e2314b100e472"
+mode = "import"
+license = "MIT"
+reason = "MIT skills collection covering engineering and product work."
+
+[[sources]]
+repository = "obra/superpowers"
+ref = "22f0b463e7a5e579904dd6211a520321035526f7"
+mode = "import"
+license = "MIT"
+reason = "MIT workflow skills."
+
+[[sources]]
+repository = "nextlevelbuilder/ui-ux-pro-max-skill"
+ref = "01706130e32f2af1d12923cce8d64a85fd76a3cd"
+mode = "import"
+license = "MIT"
+reason = "MIT UI/UX design skill collection."
+
+[[sources]]
+repository = "vercel-labs/agent-skills"
+ref = "5a37a6329fbad3666c3207392a6a7c0110e92efb"
+mode = "import"
+license = "unknown"
+reason = "No repository licence detected; per-skill MIT declarations are honoured, others stay gated."
+
+[[sources]]
+repository = "browser-use/browser-use"
+ref = "94784c1f7ecb6b0a5f565b7f9fba59e395b7e048"
+mode = "import"
+license = "MIT"
+reason = "MIT browser automation skills."
+
+[[sources]]
+repository = "browserbase/stagehand"
+ref = "97ff3e1189d3205bee10127fdde992f3313ef228"
+mode = "import"
+license = "MIT"
+reason = "MIT browser automation skills."
+
+[[sources]]
+repository = "vercel-labs/open-agents"
+ref = "cf865e94de7729751c747171785b6ce57e7b178c"
+mode = "import"
+license = "MIT"
+reason = "MIT agent templates that ship skills."
+
+[[sources]]
+repository = "heroui-inc/heroui"
+ref = "9adb9c89305ed814ff160a7368b7e8575a50f790"
+mode = "import"
+license = "Apache-2.0"
+reason = "Apache-2.0 component library skills."
+
+# Reference-only: audited, counted, not copied.
+
+[[sources]]
+repository = "anthropics/skills"
+ref = "e4bb5d960d87126ff3b3a8af1a104b7db67560ba"
+mode = "reference"
+license = "unknown"
+reason = "No repository licence detected and per-skill terms are in LICENSE.txt; reference only."
+
+[[sources]]
+repository = "openai/skills"
+ref = "49f948faa9258a0c61caceaf225e179651397431"
+mode = "reference"
+license = "unknown"
+reason = "No licence file detected; reference only."
+
+[[sources]]
+repository = "ComposioHQ/awesome-claude-skills"
+ref = "be2a406907dbc61b73e6827ded415c96139d13a2"
+mode = "reference"
+license = "unknown"
+reason = "No licence detected; index-style collection; reference only."
+
+[[sources]]
+repository = "sickn33/antigravity-awesome-skills"
+ref = "65fcb128b1539cd95349a0bd31c1fb348f69f782"
+mode = "reference"
+license = "MIT"
+reason = "MIT aggregator of 10k skills copied from many upstreams; per-skill provenance varies."
+
+[[sources]]
+repository = "majiayu000/claude-skill-registry"
+ref = "b27591212782f012628f70a7b3785f796d13635f"
+mode = "reference"
+license = "MIT"
+reason = "MIT registry aggregating tens of thousands of skills from other repositories."
+
+[[sources]]
+repository = "firecrawl/firecrawl"
+ref = "68291b7a8c27d60b848a58f26e271be808912735"
+mode = "reference"
+license = "AGPL-3.0"
+reason = "AGPL-3.0: referenced as a tool, never copied."
+
+[[sources]]
+repository = "shadcn-ui/ui"
+ref = "0e5b2e621a9ee4cf6a604bbe6c5c0d5b70561eb4"
+mode = "reference"
+license = "MIT"
+reason = "Component library, not a skill catalog; referenced for UI components."
+
+[[sources]]
+repository = "modelcontextprotocol/servers"
+ref = "c799c8552b0f27b7a33a7b9233773da144dddcf5"
+mode = "reference"
+license = "NOASSERTION"
+reason = "MCP reference servers with mixed licences; referenced in the tool/MCP registry."
