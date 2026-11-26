@@ -35,7 +35,9 @@ def load_deerflow_lead_agent() -> Any:
         return module.make_lead_agent
     except (ImportError, AttributeError) as exc:
         raise IntegrationUnavailable(
-            "DeerFlow is not available. Set NOEON_DEERFLOW_BACKEND to its backend directory."
+            "DeerFlow is not importable from "
+            f"{root or 'vendor/deer-flow/backend/packages/harness'}: {exc}. "
+            "Set NOEON_DEERFLOW_BACKEND to its backend directory and install its dependencies."
         ) from exc
 
 
@@ -51,7 +53,8 @@ def load_openhands() -> tuple[Any, Any, Any, Any]:
         return sdk.Agent, sdk.Conversation, sdk.LLM, tools
     except (ImportError, AttributeError) as exc:
         raise IntegrationUnavailable(
-            "OpenHands SDK is not available. Install noeon[openhands] or set NOEON_OPENHANDS_SDK."
+            f"OpenHands SDK is not importable from {root or 'the installed packages'}: {exc}. "
+            "Install noeon[openhands] or set NOEON_OPENHANDS_SDK."
         ) from exc
 
 
